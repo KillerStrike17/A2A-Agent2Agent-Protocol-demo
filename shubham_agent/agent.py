@@ -4,7 +4,7 @@ from datetime import date, datetime, timedelta
 from google.adk.agents import LlmAgent
 
 
-def generate_Shubham_calendar() -> dict[str, list[str]]:
+def generate_shubham_calendar() -> dict[str, list[str]]:
     """Generates a random calendar for Shubham for the next 7 days."""
     calendar = {}
     today = date.today()
@@ -23,7 +23,7 @@ def generate_Shubham_calendar() -> dict[str, list[str]]:
     return calendar
 
 
-Shubham_CALENDAR = generate_Shubham_calendar()
+KARLEY_CALENDAR = generate_shubham_calendar()
 
 
 def get_availability(start_date: str, end_date: str) -> str:
@@ -49,7 +49,7 @@ def get_availability(start_date: str, end_date: str) -> str:
         for i in range(delta.days + 1):
             day = start + timedelta(days=i)
             date_str = day.strftime("%Y-%m-%d")
-            available_slots = Shubham_CALENDAR.get(date_str, [])
+            available_slots = KARLEY_CALENDAR.get(date_str, [])
             if available_slots:
                 availability = f"On {date_str}, Shubham is available at: {', '.join(available_slots)}."
                 results.append(availability)
@@ -67,7 +67,7 @@ def get_availability(start_date: str, end_date: str) -> str:
 def create_agent() -> LlmAgent:
     """Constructs the ADK agent for Shubham."""
     return LlmAgent(
-        model="gemini-2.5-flash-preview-04-17",
+        model="gemini-2.0-flash",
         name="Shubham_Agent",
         instruction="""
             **Role:** You are Shubham's personal scheduling assistant. 
@@ -76,7 +76,7 @@ def create_agent() -> LlmAgent:
 
             **Core Directives:**
 
-            *   **Check Availability:** Use the `get_Shubham_availability` tool to determine 
+            *   **Check Availability:** Use the `get_shubham_availability` tool to determine 
                     if Shubham is free on a requested date or over a range of dates. 
                     The tool requires a `start_date` and `end_date`. If the user only provides 
                     a single date, use that date for both the start and end.

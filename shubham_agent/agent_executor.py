@@ -35,7 +35,7 @@ class ShubhamAgentExecutor(AgentExecutor):
         self, session_id, new_message: types.Content
     ) -> AsyncGenerator[Event, None]:
         return self.runner.run_async(
-            session_id=session_id, user_id="Shubham_agent", new_message=new_message
+            session_id=session_id, user_id="shubham_agent", new_message=new_message
         )
 
     async def _process_request(
@@ -98,12 +98,12 @@ class ShubhamAgentExecutor(AgentExecutor):
 
     async def _upsert_session(self, session_id: str):
         session = await self.runner.session_service.get_session(
-            app_name=self.runner.app_name, user_id="Shubham_agent", session_id=session_id
+            app_name=self.runner.app_name, user_id="shubham_agent", session_id=session_id
         )
         if session is None:
             session = await self.runner.session_service.create_session(
                 app_name=self.runner.app_name,
-                user_id="Shubham_agent",
+                user_id="shubham_agent",
                 session_id=session_id,
             )
         if session is None:
